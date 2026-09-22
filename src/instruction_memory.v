@@ -7,10 +7,10 @@ module instruction_memory(
 
     //Temporary, later the instructions come form elsewhere
     initial begin
-        memory[0] = 32'h00000001;
-        memory[1] = 32'h00000002;
-        memory[2] = 32'h00000003;
-        memory[3] = 32'h00000004;
+        memory[0] = 32'hAAAAAAAA;
+        memory[1] = 32'hBBBBBBBB;
+        memory[2] = 32'hCCCCCCCC;
+        memory[3] = 32'hDDDDDDDD;
     end
 
     assign instruction = memory[pc[5:2]];
