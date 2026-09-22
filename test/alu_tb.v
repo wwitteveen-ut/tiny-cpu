@@ -16,7 +16,7 @@ module alu_tb;
     operation_t operation;
     logic [31:0] result;
 
-    alu uut (
+    alu test_alu (
         .a(a),
         .b(b),
         .operation(operation),
