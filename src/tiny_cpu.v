@@ -23,6 +23,8 @@ module tiny_cpu(
     logic [1:0] alu_op;
     logic [31:0] alu_result;
 
+    logic [21:0] immediate;
+
     program_counter pc_module (
         .clk(clk),
         .reset(reset),
@@ -40,7 +42,8 @@ module tiny_cpu(
         .opcode(opcode),
         .rd(rd),
         .rs1(rs1),
-        .rs2(rs2)
+        .rs2(rs2),
+        .immediate(immediate)
     );
 
     register_file register_file_module (
@@ -71,5 +74,5 @@ module tiny_cpu(
 
     assign write_enable = 1'b1;
     assign write_data = alu_result;
-    
+
 endmodule
