@@ -20,6 +20,7 @@ module tiny_cpu(
     logic       write_enable;
     logic [31:0] write_data;
 
+    logic [1:0] alu_op;
     logic [31:0] alu_result;
 
     program_counter pc_module (
@@ -54,9 +55,21 @@ module tiny_cpu(
         .write_addr(rd),
         .write_data(write_data)
     );
+
+    alu_control alu_control_module (
+        .opcode(opcode),
+        .alu_op(alu_op)
+    );
+
+    alu alu_module (
+        .a(read_data_a),
+        .b(read_data_b),
+        .alu_operation(alu_op),
+        .result(alu_result)
+    );
     assign next_pc = pc + 4;
 
-    assign write_enable = 1'b0;
-    assign write_data = 32'b0;
-
+    assign write_enable = 1'b1;
+    assign write_data = alu_result;
+    
 endmodule

@@ -15,7 +15,7 @@ if [ -z "$1" ]; then
 fi
 
 MODULE="$1"
-TB="test/tb_${MODULE}.v"
+TB="test/tb_${MODULE}"
 
 if [ ! -f "$TB" ]; then
     echo "Testbench not found: $TB"
