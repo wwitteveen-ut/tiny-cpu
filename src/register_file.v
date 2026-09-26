@@ -3,15 +3,15 @@ module register_file (
 
     input logic [2:0] read_addr_a,
     input logic [2:0] read_addr_b,
-    output logic [7:0] read_data_a,
-    output logic [7:0] read_data_b,
+    output logic [31:0] read_data_a,
+    output logic [31:0] read_data_b,
 
     input logic     write_enable,
     input logic [2:0] write_addr,
-    input logic [7:0] write_data
+    input logic [31:0] write_data
 );
 
-    logic [7:0] registers [0:7];
+    logic [31:0] registers [0:7];
 
     always_ff @(posedge clk) begin
         if(write_enable) begin
@@ -22,6 +22,17 @@ module register_file (
     always_comb begin
         read_data_a = registers[read_addr_a];
         read_data_b = registers[read_addr_b];
+    end
+
+    initial begin
+        registers[0] = 0;
+        registers[1] = 10;
+        registers[2] = 5;
+        registers[3] = 20;
+        registers[4] = 7;
+        registers[5] = 0;
+        registers[6] = 0;
+        registers[7] = 0;
     end
 
 endmodule

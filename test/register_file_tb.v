@@ -6,13 +6,13 @@ module register_file_tb;
 
     logic [2:0] read_addr_a;
     logic [2:0] read_addr_b;
-    logic [7:0] read_data_a;
-    logic [7:0] read_data_b;
+    logic [31:0] read_data_a;
+    logic [31:0] read_data_b;
 
     logic write_enable;
 
     logic [2:0] write_addr;
-    logic [7:0] write_data;
+    logic [31:0] write_data;
 
     register_file test_register_file (
         .clk(clk),
