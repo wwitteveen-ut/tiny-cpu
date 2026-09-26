@@ -23,7 +23,7 @@ module tiny_cpu_tb;
             test_tiny_cpu.rs2,
             test_tiny_cpu.rd,
             test_tiny_cpu.read_data_a,
-            test_tiny_cpu.read_data_b,
+            test_tiny_cpu.alu_b,
             test_tiny_cpu.immediate,
             test_tiny_cpu.immediate_extended,
             test_tiny_cpu.alu_op,

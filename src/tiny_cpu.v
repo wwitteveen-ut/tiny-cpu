@@ -64,8 +64,7 @@ module tiny_cpu(
 
     alu_control alu_control_module (
         .opcode(opcode),
-        .alu_op(alu_op),
-        .alu_src(alu_src)
+        .alu_op(alu_op)
     );
 
     alu alu_module (
@@ -74,9 +73,14 @@ module tiny_cpu(
         .alu_operation(alu_op),
         .result(alu_result)
     );
+
+    control_unit control_unit_module (
+        .opcode(opcode),
+        .reg_write(write_enable),
+        .alu_src(alu_src)
+    );
     assign next_pc = pc + 4;
 
-    assign write_enable = 1'b1;
     assign write_data = alu_result;
 
     assign immediate_extended = {10'b0, immediate};
