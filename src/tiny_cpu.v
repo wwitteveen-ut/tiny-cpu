@@ -20,10 +20,13 @@ module tiny_cpu(
     logic       write_enable;
     logic [31:0] write_data;
 
+    logic alu_src;
     logic [1:0] alu_op;
     logic [31:0] alu_result;
+    logic [31:0] alu_b;
 
     logic [21:0] immediate;
+    logic [31:0] immediate_extended;
 
     program_counter pc_module (
         .clk(clk),
@@ -61,12 +64,13 @@ module tiny_cpu(
 
     alu_control alu_control_module (
         .opcode(opcode),
-        .alu_op(alu_op)
+        .alu_op(alu_op),
+        .alu_src(alu_src)
     );
 
     alu alu_module (
         .a(read_data_a),
-        .b(read_data_b),
+        .b(alu_b),
         .alu_operation(alu_op),
         .result(alu_result)
     );
@@ -74,5 +78,8 @@ module tiny_cpu(
 
     assign write_enable = 1'b1;
     assign write_data = alu_result;
+
+    assign immediate_extended = {10'b0, immediate};
+    assign alu_b = alu_src ? immediate_extended : read_data_b;
 
 endmodule

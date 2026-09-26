@@ -14,7 +14,7 @@ module tiny_cpu_tb;
 
     always @(posedge clk) begin
         $display(
-            "time=%0t | PC=%h | instr=%h | opcode=%b | rs1=%d | rs2=%d | rd=%d | A=%d | B=%d | ALUop=%b | result=%d",
+            "time=%0t | PC=%h | instr=%h | opcode=%b | rs1=%d | rs2=%d | rd=%d | A=%d | B=%d | imm=%d | imm_ext=%d | ALUop=%b | result=%d",
             $time,
             test_tiny_cpu.pc,
             test_tiny_cpu.instruction,
@@ -24,6 +24,8 @@ module tiny_cpu_tb;
             test_tiny_cpu.rd,
             test_tiny_cpu.read_data_a,
             test_tiny_cpu.read_data_b,
+            test_tiny_cpu.immediate,
+            test_tiny_cpu.immediate_extended,
             test_tiny_cpu.alu_op,
             test_tiny_cpu.alu_result
         );
@@ -40,7 +42,7 @@ module tiny_cpu_tb;
         reset = 0;
 
         // Let the CPU run
-        #40;
+        #80;
 
         $finish;
     end

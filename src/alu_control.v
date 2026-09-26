@@ -1,14 +1,40 @@
-module alu_control(
-    input logic [3:0] opcode,
-    output logic [1:0] alu_op
+module alu_control (
+    input  logic [3:0] opcode,
+    output logic [1:0] alu_op,
+    output logic       alu_src
 );
+
     always_comb begin
         case (opcode)
-            4'b0000, 4'b0100: alu_op = 2'b00; // ADD, ADDI
-            4'b0001:          alu_op = 2'b01; // SUB
-            4'b0010:          alu_op = 2'b10; // AND
-            4'b0011:          alu_op = 2'b11; // OR
-            default:          alu_op = 2'b00;
+            4'b0000: begin // ADD
+                alu_op  = 2'b00;
+                alu_src = 1'b0;
+            end
+
+            4'b0001: begin // SUB
+                alu_op  = 2'b01;
+                alu_src = 1'b0;
+            end
+
+            4'b0010: begin // AND
+                alu_op  = 2'b10;
+                alu_src = 1'b0;
+            end
+
+            4'b0011: begin // OR
+                alu_op  = 2'b11;
+                alu_src = 1'b0;
+            end
+
+            4'b0100: begin // ADDI
+                alu_op  = 2'b00;
+                alu_src = 1'b1;
+            end
+
+            default: begin
+                alu_op  = 2'b00;
+                alu_src = 1'b0;
+            end
         endcase
     end
 
