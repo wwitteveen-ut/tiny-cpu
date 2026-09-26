@@ -21,6 +21,9 @@ module instruction_memory(
 
         // ADDI R7, R1, 7
         memory[4] = {4'b0100, 3'd7, 3'd1, 22'd7};
+
+        // SW R2, 2(R1)
+        memory[5] = {4'b0101, 3'd1, 3'd2, 22'd2};
     end
 
     assign instruction = memory[pc[5:2]];

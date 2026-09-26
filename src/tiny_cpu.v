@@ -17,7 +17,10 @@ module tiny_cpu(
     logic [31:0] read_data_a;
     logic [31:0] read_data_b;
 
+    logic [31:0] memory_read_data;
+
     logic       write_enable;
+    logic       mem_write;
     logic [31:0] write_data;
 
     logic alu_src;
@@ -77,8 +80,18 @@ module tiny_cpu(
     control_unit control_unit_module (
         .opcode(opcode),
         .reg_write(write_enable),
-        .alu_src(alu_src)
+        .alu_src(alu_src),
+        .mem_write(mem_write)
     );
+
+    data_memory data_memory_module (
+        .clk(clk),
+        .address(alu_result),
+        .write_data(read_data_b),
+        .write_enable(mem_write),
+        .read_data(memory_read_data)
+    );
+    
     assign next_pc = pc + 4;
 
     assign write_data = alu_result;

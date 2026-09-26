@@ -14,10 +14,9 @@ module tiny_cpu_tb;
 
     always @(posedge clk) begin
         $display(
-            "time=%0t | PC=%h | instr=%h | opcode=%b | rs1=%d | rs2=%d | rd=%d | A=%d | B=%d | imm=%d | imm_ext=%d | ALUop=%b | result=%d",
+            "time=%0t | PC=%h | opcode=%b | rs1=%d | rs2=%d | rd=%d | A=%d | ALUB=%d | imm=%d | ALUop=%b | result=%d | mem_write=%b | write_data=%d",
             $time,
             test_tiny_cpu.pc,
-            test_tiny_cpu.instruction,
             test_tiny_cpu.opcode,
             test_tiny_cpu.rs1,
             test_tiny_cpu.rs2,
@@ -25,9 +24,10 @@ module tiny_cpu_tb;
             test_tiny_cpu.read_data_a,
             test_tiny_cpu.alu_b,
             test_tiny_cpu.immediate,
-            test_tiny_cpu.immediate_extended,
             test_tiny_cpu.alu_op,
-            test_tiny_cpu.alu_result
+            test_tiny_cpu.alu_result,
+            test_tiny_cpu.mem_write,
+            test_tiny_cpu.read_data_b
         );
     end
 
@@ -38,11 +38,21 @@ module tiny_cpu_tb;
         clk = 0;
         reset = 1;
 
-        #7;
+        #10;
         reset = 0;
 
         // Let the CPU run
-        #80;
+        #70;
+
+        #7;
+
+        if (test_tiny_cpu.data_memory_module.memory[3] === 32'd5) begin
+            $display("PASS: SW wrote 5 to memory[3]");
+        end else begin
+            $display("FAIL: SW did not write correctly");
+            $display("      got      %d", test_tiny_cpu.data_memory_module.memory[3]);
+            $display("      expected 5");
+        end
 
         $finish;
     end
