@@ -6,7 +6,7 @@ echo "Compiling tiny CPU..."
 
 iverilog -g2012 -o build/tiny_cpu_sim \
     src/*.v \
-    test/tiny_cpu_tb.v
+    test/tb_tiny_cpu.v
 
 echo "Build successful!"
 echo "Running simulation..."

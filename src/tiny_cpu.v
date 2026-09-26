@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module tiny_cpu(
     input logic clk,
     input logic reset
@@ -53,7 +55,7 @@ module tiny_cpu(
         .write_data(write_data)
     );
     assign next_pc = pc + 4;
-    
+
     assign write_enable = 1'b0;
     assign write_data = 32'b0;
 
